@@ -63,10 +63,19 @@ void Render_World::Render()
 // or the background color if there is no object intersection
 vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
 {
-    // TODO
     vec3 color;
+	vec3 dummy; // TODO: temporary, change later
+	
+	Object* close;
+	Hit hit;
 
-    // determine the color here
+	close = Closest_Intersection(ray, hit);
+	
+	if(close) {
+		color = close->material_shader->Shade_Surface(ray, dummy, dummy, recursion_depth);
+	} else {
+		color = background_shader->Shade_Surface(ray, dummy, dummy, recursion_depth);
+	}
 
     return color;
 }
