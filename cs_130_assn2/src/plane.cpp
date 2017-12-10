@@ -9,8 +9,22 @@
 bool Plane::
 Intersection(const Ray& ray, std::vector<Hit>& hits) const
 {
-    // TODO
-    return false;
+	double t_1;
+	
+    vec3 w = ray.direction;
+    vec3 u = ray.endpoint;
+    
+    t_1 = -dot(normal, (u - x1)) / dot(normal,w);
+
+	if(t_1 < 0) {
+		return false;
+	}
+	
+	Hit h1 = {this, t_1, true};
+	
+	hits.push_back(h1);
+	return true;
+	
 }
 
 vec3 Plane::
